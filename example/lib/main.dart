@@ -41,11 +41,11 @@ class MyHomePage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Center(
-              child: FilterButton<Filter>(
+              child: FilterToggle<Filter>(
                 filters: Filter.values,
-                currentFilter: ValueNotifier(Filter.all),
+                currentFilter: Filter.all,
                 onSelected: (filter) {
-                  print(filter.value);
+                  print(filter);
                 },
               ),
             ),

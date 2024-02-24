@@ -3,6 +3,14 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 enum DropdownType { list, menu }
 
+/// This is a widget that creates a dropdown menu with a list of items
+/// There are two types of dropdowns, [DropdownType.list] and [DropdownType.menu]
+/// [DropdownType.list] is a dropdown that shows a list of items
+/// [DropdownType.menu] is a dropdown that shows a menu of items
+/// The [items] parameter is a list of [FilterDropdownItem] that contains the items to be displayed
+/// The [currentValue] parameter is the current value of the dropdown
+/// The [onSelected] parameter is a function that is called when an item is selected
+
 class FilterDropdownMenu<T> extends StatefulWidget {
   final DropdownType type;
   final List<FilterDropdownItem<T>> items;
@@ -211,13 +219,14 @@ class FilterDropdownItem<T> {
   FilterDropdownItem({required this.child, required this.value});
 }
 
-class FilterButton<T extends Enum> extends StatelessWidget {
+
+class FilterToggle<T extends Enum> extends StatefulWidget {
   final List<T> filters;
-  final Function(ValueNotifier<T>) onSelected;
-  final ValueNotifier<T> currentFilter;
+  final Function(T) onSelected;
+  final T currentFilter;
   final double spacing;
 
-  const FilterButton(
+  const FilterToggle(
       {super.key,
       required this.filters,
       required this.currentFilter,
@@ -225,66 +234,79 @@ class FilterButton<T extends Enum> extends StatelessWidget {
       this.spacing = 10});
 
   @override
+  FilterToggleState<T> createState() => FilterToggleState<T>();
+}
+
+class FilterToggleState<T extends Enum> extends State<FilterToggle<T>> {
+
+  late T currentFilter;
+
+  @override
+  void initState() {
+    currentFilter = widget.currentFilter;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      valueListenable: currentFilter,
-      builder: (_, value, child) => Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: filters.map(
-          (e) {
-            String value = e.toString().split('.').last;
-            return Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: spacing,
-                    ),
-                    child: TextButton(
-                      style: ButtonStyle(
-                        foregroundColor: MaterialStateProperty.all<Color>(
-                            currentFilter.value == e
-                                ? Theme.of(context).primaryColor
-                                : Theme.of(context)
-                                    .textTheme
-                                    .labelLarge!
-                                    .color!
-                                    .withOpacity(0.3)),
-                      ),
-                      child: Text(
-                        value,
-                        maxLines: 1,
-                      ),
-                      onPressed: () {
-                        currentFilter.value = e;
-                        onSelected(currentFilter);
-                      },
-                    ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: widget.filters.map(
+        (e) {
+          String value = e.toString().split('.').last;
+          return Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: widget.spacing,
                   ),
-                  AnimatedContainer(
-                      curve: Curves.fastLinearToSlowEaseIn,
-                      width: value == e ? 32 : 0,
-                      height: 4,
-                      decoration: BoxDecoration(
-                        color: value == e
-                            ? Theme.of(context).primaryColor
-                            : Theme.of(context)
-                                .textTheme
-                                .labelLarge!
-                                .color!
-                                .withOpacity(0.5),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      duration: const Duration(
-                        milliseconds: 200,
-                      )),
-                ],
-              ),
-            );
-          },
-        ).toList(),
-      ),
+                  child: TextButton(
+                    style: ButtonStyle(
+                      foregroundColor: MaterialStateProperty.all<Color>(
+                          currentFilter == e
+                              ? Theme.of(context).primaryColor
+                              : Theme.of(context)
+                                  .textTheme
+                                  .labelLarge!
+                                  .color!
+                                  .withOpacity(0.3)),
+                    ),
+                    child: Text(
+                      value,
+                      maxLines: 1,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        currentFilter = e;
+                      });
+                      widget.onSelected(currentFilter);
+                    },
+                  ),
+                ),
+                AnimatedContainer(
+                    curve: Curves.fastLinearToSlowEaseIn,
+                    width: value == e ? 32 : 0,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: value == e
+                          ? Theme.of(context).primaryColor
+                          : Theme.of(context)
+                              .textTheme
+                              .labelLarge!
+                              .color!
+                              .withOpacity(0.5),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    duration: const Duration(
+                      milliseconds: 200,
+                    )),
+              ],
+            ),
+          );
+        },
+      ).toList(),
     );
   }
 }
