@@ -6,3 +6,7 @@
 
 * Added 4 new DropdownType (`checkbox_list`, `checkbox_menu`, `radio_list`, `list_radio` )
 * Dropdown Issues addressed (added more size customisation, and better label usage)
+
+## 0.0.3
+
+* Fixed Borders for Dropdown Menu
