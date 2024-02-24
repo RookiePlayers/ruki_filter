@@ -264,13 +264,21 @@ class FilterDropdownMenuState<T> extends State<FilterDropdownMenu<T>> {
             filled: widget.filled,
             labelText: widget.labelText,
             labelStyle: widget.labelStyle,
-            border: widget.inputBorder ??
-                OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(widget.borderRadius),
-                  borderSide: BorderSide(
-                    width: widget.borderWidth,
-                  ),
-                ),
+             focusedBorder: widget.enableBorder
+                  ? (widget.focuseBorder ?? widget.inputBorder)
+                  : InputBorder.none,
+              border: (widget.enableBorder
+                  ? widget.inputBorder ??
+                      OutlineInputBorder(
+                        borderRadius:
+                            BorderRadius.circular(widget.borderRadius),
+                        borderSide: BorderSide(
+                          width: widget.borderWidth,
+                          color: widget.borderColor ??
+                              Theme.of(context).primaryColor,
+                        ),
+                      )
+                  : InputBorder.none),
           ),
           value: currentValue,
           selectedItemBuilder: (BuildContext context) {
