@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ruki_filter/ruki_filter.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -19,7 +20,6 @@ class MyApp extends StatelessWidget {
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
-
 }
 
 enum Filter { all, active, completed }
@@ -37,7 +37,6 @@ class MyHomePage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text("Filter Button Example:"),
-
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Center(
@@ -50,139 +49,171 @@ class MyHomePage extends StatelessWidget {
               ),
             ),
           ),
-
           const Text("Filter Dropdown Example:"),
           Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SizedBox(
-              width: 400,
-              height: 40,
-              child: Row(
-                children: [
-                   Expanded(
-                     child: FilterDropdownMenu<Filter>(
-                      type: DropdownType.menu,
-                       items: Filter.values.map((e) => FilterDropdownItem<Filter>(child: Text(e.toString().split('.').last), value: e)).toList(),
-                       currentValue: Filter.all,
-                       onSelected: (filter) {
-                                         print(filter);
-                       },
-                     ),
-                   ),
-                   Spacer(),
-                   Expanded(
-                     child: FilterDropdownMenu<Filter>(
-                       items: Filter.values.map((e) => FilterDropdownItem<Filter>(child: Text(e.toString().split('.').last), value: e)).toList(),
-                       currentValue: Filter.all,
-                       onSelected: (filter) {
-                                         print(filter);
-                       },
-                     ),
-                   ),
-                   Spacer(),
-                   Expanded(
-                     child: FilterDropdownMenu<Filter>(
-                       items: Filter.values.map((e) => FilterDropdownItem<Filter>(child: Text(e.toString().split('.').last), value: e)).toList(),
-                       currentValue: Filter.all,
-                       onSelected: (filter) {
-                                         print(filter);
-                       },
-                     ),
-                   ),
-                ],
-              ),
-            )
-          ),
-        const Text("Filter Radios Dropdown Example:"),
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: 400,
+                height: 40,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: FilterDropdownMenu<Filter>(
+                        type: DropdownType.menu,
+                        items: Filter.values
+                            .map((e) => FilterDropdownItem<Filter>(
+                                child: Text(e.toString().split('.').last),
+                                value: e))
+                            .toList(),
+                        currentValue: Filter.all,
+                        onSelected: (filter) {
+                          print(filter);
+                        },
+                      ),
+                    ),
+                    Spacer(),
+                    Expanded(
+                      child: FilterDropdownMenu<Filter>(
+                        items: Filter.values
+                            .map((e) => FilterDropdownItem<Filter>(
+                                child: Text(e.toString().split('.').last),
+                                value: e))
+                            .toList(),
+                        currentValue: Filter.all,
+                        onSelected: (filter) {
+                          print(filter);
+                        },
+                      ),
+                    ),
+                    Spacer(),
+                    Expanded(
+                      child: FilterDropdownMenu<Filter>(
+                        items: Filter.values
+                            .map((e) => FilterDropdownItem<Filter>(
+                                child: Text(e.toString().split('.').last),
+                                value: e))
+                            .toList(),
+                        currentValue: Filter.all,
+                        onSelected: (filter) {
+                          print(filter);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              )),
+          const Text("Filter Radios Dropdown Example:"),
           Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SizedBox(
-              width: 600,
-              height: 40,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: FilterDropdownMenu<Filter>(
-                      type: DropdownType.radio_menu,
-                      items: Filter.values.map((e) => FilterDropdownItem<Filter>(child: Text(e.toString().split('.').last), value: e)).toList(),
-                      currentValue: Filter.all,
-                      onSelected: (filter) {
-                        print(filter);
-                      },
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: 600,
+                height: 40,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: FilterDropdownMenu<Filter>(
+                        type: DropdownType.radioMenu,
+                        items: Filter.values
+                            .map((e) => FilterDropdownItem<Filter>(
+                                child: Text(e.toString().split('.').last),
+                                value: e))
+                            .toList(),
+                        currentValue: Filter.all,
+                        onSelected: (filter) {
+                          print(filter);
+                        },
+                      ),
                     ),
-                  ),
-                  Spacer(),
-                  Expanded(
-                    child: FilterDropdownMenu<Filter>(
-                      type: DropdownType.radio_list,
-                      width: 200,
-                      items: Filter.values.map((e) => FilterDropdownItem<Filter>(child: Text(e.toString().split('.').last), value: e)).toList(),
-                      currentValue: Filter.all,
-                      onSelected: (filter) {
-                        print(filter);
-                      },
+                    Spacer(),
+                    Expanded(
+                      child: FilterDropdownMenu<Filter>(
+                        type: DropdownType.radioList,
+                        width: 200,
+                        items: Filter.values
+                            .map((e) => FilterDropdownItem<Filter>(
+                                child: Text(e.toString().split('.').last),
+                                value: e))
+                            .toList(),
+                        currentValue: Filter.all,
+                        onSelected: (filter) {
+                          print(filter);
+                        },
+                      ),
                     ),
-                  ),
-                  Spacer(),
-                  Expanded(
-                    child: FilterDropdownMenu<Filter>(
-                      type: DropdownType.radio_list,
-                      items: Filter.values.map((e) => FilterDropdownItem<Filter>(child: Text(e.toString().split('.').last), value: e)).toList(),
-                      currentValue: Filter.all,
-                      onSelected: (filter) {
-                        print(filter);
-                      },
+                    Spacer(),
+                    Expanded(
+                      child: FilterDropdownMenu<Filter>(
+                        type: DropdownType.radioList,
+                        items: Filter.values
+                            .map((e) => FilterDropdownItem<Filter>(
+                                child: Text(e.toString().split('.').last),
+                                value: e))
+                            .toList(),
+                        currentValue: Filter.all,
+                        onSelected: (filter) {
+                          print(filter);
+                        },
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            )
-          ),
-        const Text("Filter Checkbox Dropdown"),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SizedBox(
-            width: 600,
-            height: 40,
-            child: Row(
-              children: [
-                Expanded(
-                  child: FilterDropdownMenu<Filter>(
-                    type: DropdownType.checkbox_menu,
-                    items: Filter.values.map((e) => FilterDropdownItem<Filter>(child: Text(e.toString().split('.').last), value: e)).toList(),
-                    currentValue: Filter.all,
-                    onSelected: (filter) {
-                      print(filter);
-                    },
-                  ),
+                  ],
                 ),
-                Spacer(),
-                Expanded(
-                  child: FilterDropdownMenu<Filter>(
-                    type: DropdownType.checkbox_list,
-                    width: 200,
-                    items: Filter.values.map((e) => FilterDropdownItem<Filter>(child: Text(e.toString().split('.').last), value: e)).toList(),
-                    currentValue: Filter.all,
-                    onSelected: (filter) {
-                      print(filter);
-                    },
-                  ),
+              )),
+          const Text("Filter Checkbox Dropdown"),
+          Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: 600,
+                height: 40,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: FilterDropdownMenu<Filter>(
+                        type: DropdownType.checkboxMenu,
+                        items: Filter.values
+                            .map((e) => FilterDropdownItem<Filter>(
+                                child: Text(e.toString().split('.').last),
+                                value: e))
+                            .toList(),
+                        currentValue: Filter.all,
+                        onSelected: (filter) {
+                          print(filter);
+                        },
+                      ),
+                    ),
+                    Spacer(),
+                    Expanded(
+                      child: FilterDropdownMenu<Filter>(
+                        type: DropdownType.checkboxList,
+                        width: 200,
+                        items: Filter.values
+                            .map((e) => FilterDropdownItem<Filter>(
+                                child: Text(e.toString().split('.').last),
+                                value: e))
+                            .toList(),
+                        currentValue: Filter.all,
+                        onSelected: (filter) {
+                          print(filter);
+                        },
+                      ),
+                    ),
+                    Spacer(),
+                    Expanded(
+                      child: FilterDropdownMenu<Filter>(
+                        type: DropdownType.checkboxList,
+                        items: Filter.values
+                            .map((e) => FilterDropdownItem<Filter>(
+                                child: Text(e.toString().split('.').last),
+                                value: e))
+                            .toList(),
+                        currentValue: Filter.all,
+                        onSelected: (filter) {
+                          print(filter);
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-                Spacer(),
-                Expanded(
-                  child: FilterDropdownMenu<Filter>(
-                    type: DropdownType.checkbox_list,
-                    items: Filter.values.map((e) => FilterDropdownItem<Filter>(child: Text(e.toString().split('.').last), value: e)).toList(),
-                    currentValue: Filter.all,
-                    onSelected: (filter) {
-                      print(filter);
-                    },
-                  ),
-                ),
-              ],
-            ),
-          )
-        )
+              ))
         ],
       ),
     );

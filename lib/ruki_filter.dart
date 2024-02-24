@@ -5,10 +5,10 @@ import 'package:flutter_animate/flutter_animate.dart';
 enum DropdownType {
   list,
   menu,
-  checkbox_list,
-  checkbox_menu,
-  radio_list,
-  radio_menu
+  checkboxList,
+  checkboxMenu,
+  radioList,
+  radioMenu
 }
 
 /// This is a widget that creates a dropdown menu with a list of items
@@ -39,6 +39,8 @@ class FilterDropdownMenu<T> extends StatefulWidget {
   final Color? focusColor;
   final Color? hoverColor;
   final Color? menuColor;
+  final Color? borderColor;
+  final bool enableBorder;
   final int elevation;
   final bool enableFeedback;
   final bool filled;
@@ -47,6 +49,7 @@ class FilterDropdownMenu<T> extends StatefulWidget {
   final double minFontSize;
   final EdgeInsets inputPadding;
   final OutlineInputBorder? inputBorder;
+  final OutlineInputBorder? focuseBorder;
 
   FilterDropdownMenu(
       {super.key,
@@ -76,6 +79,9 @@ class FilterDropdownMenu<T> extends StatefulWidget {
       this.filled = true,
       this.closeDialogOnExitOnly = true,
       this.inputBorder,
+      this.focuseBorder,
+      this.enableBorder = true,
+      this.borderColor,
       this.inputPadding =
           const EdgeInsets.symmetric(horizontal: 8, vertical: 1)})
       : assert(items.isNotEmpty,
@@ -112,16 +118,16 @@ class FilterDropdownMenuState<T> extends State<FilterDropdownMenu<T>> {
       case DropdownType.menu:
         child = _buildMenu();
         break;
-      case DropdownType.checkbox_list:
+      case DropdownType.checkboxList:
         child = _buildCheckboxList();
         break;
-      case DropdownType.checkbox_menu:
+      case DropdownType.checkboxMenu:
         child = _buildCheckboxMenu();
         break;
-      case DropdownType.radio_list:
+      case DropdownType.radioList:
         child = _buildList(showRadio: true);
         break;
-      case DropdownType.radio_menu:
+      case DropdownType.radioMenu:
         child = _buildMenu(showRadio: true);
         break;
     }
@@ -130,7 +136,6 @@ class FilterDropdownMenuState<T> extends State<FilterDropdownMenu<T>> {
 
   _handleMultiSelect(bool e, T? value,
       {void Function(void Function())? customSetState}) {
-    print(selectedItems.contains(value));
     if (value == null) return;
     if (selectedItems.contains(value)) {
       selectedItems.remove(value);
@@ -138,11 +143,8 @@ class FilterDropdownMenuState<T> extends State<FilterDropdownMenu<T>> {
       selectedItems.add(value);
     }
     widget.onMultiSelected?.call(selectedItems);
-    print(selectedItems);
     if (customSetState != null) {
-      customSetState(() {
-        print("Updating State");
-      });
+      customSetState(() {});
     }
     setState(() {});
   }
@@ -177,13 +179,21 @@ class FilterDropdownMenuState<T> extends State<FilterDropdownMenu<T>> {
               filled: widget.filled,
               labelText: widget.labelText,
               labelStyle: widget.labelStyle,
-              border: widget.inputBorder ??
-                  OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(widget.borderRadius),
-                    borderSide: BorderSide(
-                      width: widget.borderWidth,
-                    ),
-                  ),
+              focusedBorder: widget.enableBorder
+                  ? (widget.focuseBorder ?? widget.inputBorder)
+                  : InputBorder.none,
+              border: (widget.enableBorder
+                  ? widget.inputBorder ??
+                      OutlineInputBorder(
+                        borderRadius:
+                            BorderRadius.circular(widget.borderRadius),
+                        borderSide: BorderSide(
+                          width: widget.borderWidth,
+                          color: widget.borderColor ??
+                              Theme.of(context).primaryColor,
+                        ),
+                      )
+                  : InputBorder.none),
             ),
             value: currentValue,
             selectedItemBuilder: (BuildContext context) {
@@ -209,7 +219,7 @@ class FilterDropdownMenuState<T> extends State<FilterDropdownMenu<T>> {
                           controlAffinity: ListTileControlAffinity.leading,
                           value: selectedItems.contains(e.value),
                           onChanged: (v) {
-                            if(!widget.closeDialogOnExitOnly){
+                            if (!widget.closeDialogOnExitOnly) {
                               Navigator.of(context).pop();
                             }
                             _handleMultiSelect(v!, e.value,
@@ -381,11 +391,9 @@ class FilterDropdownMenuState<T> extends State<FilterDropdownMenu<T>> {
                                         ? Icon(
                                             currentValue == e.value
                                                 ? Icons.radio_button_checked
-                                                : Icons
-                                                    .radio_button_unchecked,
+                                                : Icons.radio_button_unchecked,
                                             color: e.value == currentValue
-                                                ? Theme.of(context)
-                                                    .primaryColor
+                                                ? Theme.of(context).primaryColor
                                                 : Theme.of(context)
                                                     .textTheme
                                                     .headlineMedium
@@ -404,9 +412,7 @@ class FilterDropdownMenuState<T> extends State<FilterDropdownMenu<T>> {
                           )
                           .toList()
                           .animate(interval: 100.ms)
-                          .fade(
-                              duration: 200.ms,
-                              curve: Curves.easeInOutCubic)
+                          .fade(duration: 200.ms, curve: Curves.easeInOutCubic)
                           .slide(
                               begin: const Offset(0, 0.5),
                               end: const Offset(0, 0)),
