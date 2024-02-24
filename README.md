@@ -82,6 +82,96 @@ class MyHomePage extends StatelessWidget {
               ),
             )
           ),
+           const Text("Filter Radios Dropdown Example:"),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SizedBox(
+              width: 600,
+              height: 40,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: FilterDropdownMenu<Filter>(
+                      type: DropdownType.radio_menu,
+                      items: Filter.values.map((e) => FilterDropdownItem<Filter>(child: Text(e.toString().split('.').last), value: e)).toList(),
+                      currentValue: Filter.all,
+                      onSelected: (filter) {
+                        print(filter);
+                      },
+                    ),
+                  ),
+                  Spacer(),
+                  Expanded(
+                    child: FilterDropdownMenu<Filter>(
+                      type: DropdownType.radio_list,
+                      width: 200,
+                      items: Filter.values.map((e) => FilterDropdownItem<Filter>(child: Text(e.toString().split('.').last), value: e)).toList(),
+                      currentValue: Filter.all,
+                      onSelected: (filter) {
+                        print(filter);
+                      },
+                    ),
+                  ),
+                  Spacer(),
+                  Expanded(
+                    child: FilterDropdownMenu<Filter>(
+                      type: DropdownType.radio_list,
+                      items: Filter.values.map((e) => FilterDropdownItem<Filter>(child: Text(e.toString().split('.').last), value: e)).toList(),
+                      currentValue: Filter.all,
+                      onSelected: (filter) {
+                        print(filter);
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ),
+        const Text("Filter Checkbox Dropdown"),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SizedBox(
+            width: 600,
+            height: 40,
+            child: Row(
+              children: [
+                Expanded(
+                  child: FilterDropdownMenu<Filter>(
+                    type: DropdownType.checkbox_menu,
+                    items: Filter.values.map((e) => FilterDropdownItem<Filter>(child: Text(e.toString().split('.').last), value: e)).toList(),
+                    currentValue: Filter.all,
+                    onSelected: (filter) {
+                      print(filter);
+                    },
+                  ),
+                ),
+                Spacer(),
+                Expanded(
+                  child: FilterDropdownMenu<Filter>(
+                    type: DropdownType.checkbox_list,
+                    width: 200,
+                    items: Filter.values.map((e) => FilterDropdownItem<Filter>(child: Text(e.toString().split('.').last), value: e)).toList(),
+                    currentValue: Filter.all,
+                    onSelected: (filter) {
+                      print(filter);
+                    },
+                  ),
+                ),
+                Spacer(),
+                Expanded(
+                  child: FilterDropdownMenu<Filter>(
+                    type: DropdownType.checkbox_list,
+                    items: Filter.values.map((e) => FilterDropdownItem<Filter>(child: Text(e.toString().split('.').last), value: e)).toList(),
+                    currentValue: Filter.all,
+                    onSelected: (filter) {
+                      print(filter);
+                    },
+                  ),
+                ),
+              ],
+            ),
+          )
+        )
         ],
       ),
     );
@@ -94,19 +184,23 @@ class MyHomePage extends StatelessWidget {
 ## API Reference
 
 ### FilterDropdownMenu
-| Property       | Description                                                                 | Type                      |
-|----------------|-----------------------------------------------------------------------------|---------------------------|
-| value          | The currently selected value                                                | dynamic                   |
-| child          | The child widget to display                                                 | Widget                    |
-| items          | The list of items to display in the dropdown menu                           | List<DropdownMenuItem>    |
-| onSelected     | Callback function that is called when an item is selected                   | Function(dynamic)         |
-| filled         | Whether the dropdown menu should be filled with a background color          | bool                      |
-| inputFillColor | The background color of the filled dropdown menu                            | Color?                    |
-| borderRadius   | The border radius of the dropdown menu container                            | double                    |
-| borderWidth    | The width of the border of the dropdown menu container                      | double                    |
-| inputStyle     | The style of the text in the dropdown menu                                  | TextStyle                 |
-| labelAlign     | The alignment of the text in the dropdown menu                              | TextAlign                 |
-| width          | The maximum width of the dropdown menu                                      | double?                   |
+| Property              | Description                                                                 | Type                      |
+|-----------------------|-----------------------------------------------------------------------------|---------------------------|
+| value                 | The currently selected value                                                | dynamic                   |
+| child                 | The child widget to display                                                 | Widget                    |
+| items                 | The list of items to display in the dropdown menu                           | List<DropdownMenuItem>    |
+| onSelected            | Callback function that is called when an item is selected                   | Function(dynamic)         |
+| filled                | Whether the dropdown menu should be filled with a background color          | bool                      |
+| inputFillColor        | The background color of the filled dropdown menu                            | Color?                    |
+| borderRadius          | The border radius of the dropdown menu container                            | double                    |
+| borderWidth           | The width of the border of the dropdown menu container                      | double                    |
+| inputStyle            | The style of the text in the dropdown menu                                  | TextStyle                 |
+| labelAlign            | The alignment of the text in the dropdown menu                              | TextAlign                 |
+| width                 | The maximum width of the dropdown menu                                      | double?                   |
+| selectedItems         | For When `type` = `DropdownType.checkbox_menu`, List of Selected Items      | List<T>?                  |
+| onMultiSelected       | For When `type` = `DropdownType.checkbox_menu`, Multilist calback           | Function(List<T>)?        |
+| closeDialogOnExitOnly | true means, clicking on a multilist item won't close the dialog             | bool                      |
+
 
 
 ### FilterToggle

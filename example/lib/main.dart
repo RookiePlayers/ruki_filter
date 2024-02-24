@@ -93,6 +93,96 @@ class MyHomePage extends StatelessWidget {
               ),
             )
           ),
+        const Text("Filter Radios Dropdown Example:"),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SizedBox(
+              width: 600,
+              height: 40,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: FilterDropdownMenu<Filter>(
+                      type: DropdownType.radio_menu,
+                      items: Filter.values.map((e) => FilterDropdownItem<Filter>(child: Text(e.toString().split('.').last), value: e)).toList(),
+                      currentValue: Filter.all,
+                      onSelected: (filter) {
+                        print(filter);
+                      },
+                    ),
+                  ),
+                  Spacer(),
+                  Expanded(
+                    child: FilterDropdownMenu<Filter>(
+                      type: DropdownType.radio_list,
+                      width: 200,
+                      items: Filter.values.map((e) => FilterDropdownItem<Filter>(child: Text(e.toString().split('.').last), value: e)).toList(),
+                      currentValue: Filter.all,
+                      onSelected: (filter) {
+                        print(filter);
+                      },
+                    ),
+                  ),
+                  Spacer(),
+                  Expanded(
+                    child: FilterDropdownMenu<Filter>(
+                      type: DropdownType.radio_list,
+                      items: Filter.values.map((e) => FilterDropdownItem<Filter>(child: Text(e.toString().split('.').last), value: e)).toList(),
+                      currentValue: Filter.all,
+                      onSelected: (filter) {
+                        print(filter);
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ),
+        const Text("Filter Checkbox Dropdown"),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SizedBox(
+            width: 600,
+            height: 40,
+            child: Row(
+              children: [
+                Expanded(
+                  child: FilterDropdownMenu<Filter>(
+                    type: DropdownType.checkbox_menu,
+                    items: Filter.values.map((e) => FilterDropdownItem<Filter>(child: Text(e.toString().split('.').last), value: e)).toList(),
+                    currentValue: Filter.all,
+                    onSelected: (filter) {
+                      print(filter);
+                    },
+                  ),
+                ),
+                Spacer(),
+                Expanded(
+                  child: FilterDropdownMenu<Filter>(
+                    type: DropdownType.checkbox_list,
+                    width: 200,
+                    items: Filter.values.map((e) => FilterDropdownItem<Filter>(child: Text(e.toString().split('.').last), value: e)).toList(),
+                    currentValue: Filter.all,
+                    onSelected: (filter) {
+                      print(filter);
+                    },
+                  ),
+                ),
+                Spacer(),
+                Expanded(
+                  child: FilterDropdownMenu<Filter>(
+                    type: DropdownType.checkbox_list,
+                    items: Filter.values.map((e) => FilterDropdownItem<Filter>(child: Text(e.toString().split('.').last), value: e)).toList(),
+                    currentValue: Filter.all,
+                    onSelected: (filter) {
+                      print(filter);
+                    },
+                  ),
+                ),
+              ],
+            ),
+          )
+        )
         ],
       ),
     );

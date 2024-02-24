@@ -1,6 +1,6 @@
 name: ruki_filter
 description: "Filter Button Provides, a quick and easy use of toggles using just enums, and Filter Dropdown provides a quick and easy way to select fillters."
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/RookiePlayers/ruki_filter
 repository: https://github.com/RookiePlayers/ruki_filter
 
@@ -9,6 +9,7 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
+  auto_size_text: ^3.0.0
   flutter:
     sdk: flutter
   flutter_animate: ^4.5.0
