@@ -10,3 +10,7 @@
 ## 0.0.3
 
 * Fixed Borders for Dropdown Menu
+
+## 0.0.4
+
+* Fixed Borders for Dropdown Menu
