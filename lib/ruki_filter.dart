@@ -158,7 +158,7 @@ class FilterDropdownMenuState<T> extends State<FilterDropdownMenu<T>> {
               child: Text(val,
                   style: widget.inputStyle, textAlign: widget.labelAlign),
             ),
-            Icon(Icons.arrow_drop_down),
+            const Icon(Icons.arrow_drop_down),
           ],
         ),
       ),
